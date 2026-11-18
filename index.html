@@ -1,1 +1,601 @@
-...
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autofix Garage — Car Service & Repair in Lahti</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              dark: '#0B1120',
+              card: '#111827',
+              accent: '#F59E0B',
+              accentHover: '#D97706',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .accordion-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.25s ease-out;
+    }
+    .accordion-item.open .accordion-content {
+      grid-template-rows: 1fr;
+    }
+    .accordion-inner {
+      overflow: hidden;
+    }
+    .accordion-chevron {
+      transition: transform 0.25s ease;
+    }
+    .accordion-item.open .accordion-chevron {
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 pb-24 sm:pb-0">
+
+  <!-- Sticky Mobile-First Top Bar -->
+  <header class="sticky top-0 z-40 bg-brand-dark/95 backdrop-blur-md text-white border-b border-slate-800">
+    <div class="max-w-3xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center font-extrabold text-lg shadow-sm">
+          A
+        </div>
+        <div>
+          <span class="font-extrabold tracking-tight text-base sm:text-lg block leading-none">AUTOFIX GARAGE</span>
+          <span class="text-[11px] text-slate-400 font-medium tracking-wider uppercase">Lahti • Viilaajankatu 10</span>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-2">
+        <!-- Language Toggle -->
+        <button id="langToggle" type="button" aria-label="Switch language"
+          class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 transition">
+          FI / EN
+        </button>
+
+        <!-- Desktop Quick Link -->
+        <a href="#location"
+          class="hidden sm:inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs px-3.5 py-2 rounded-lg transition shadow-sm"
+          data-i18n="nav_visit">
+          Visit & Hours
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-brand-dark text-white pt-8 pb-10 sm:pt-12 sm:pb-14 px-4 border-b border-slate-800">
+    <div class="max-w-3xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/90 border border-slate-700 text-xs font-medium text-amber-400 mb-4">
+        <span class="flex items-center gap-1 font-bold text-white">
+          <svg class="w-3.5 h-3.5 text-amber-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          4.8 / 5.0
+        </span>
+        <span class="text-slate-400">•</span>
+        <span data-i18n="hero_badge">Trusted Workshop in Lahti</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight mb-3" data-i18n="hero_title">
+        Honest, Thorough Car Service & Repair in Lahti.
+      </h1>
+
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl mb-6" data-i18n="hero_sub">
+        All car makes serviced without rushing. Clear upfront estimates, 6-month / 15,000 km warranty on work and parts, and fast availability.
+      </p>
+
+      <!-- Primary Mobile Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="#services"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-slate-950 font-bold text-sm px-6 py-3.5 rounded-xl transition shadow-lg shadow-amber-500/10">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span data-i18n="cta_services">Explore Services</span>
+        </a>
+
+        <a href="https://www.google.com/maps/search/?api=1&query=Viilaajankatu+10,+15520+Lahti" target="_blank" rel="noopener"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm px-5 py-3.5 rounded-xl border border-slate-700 transition">
+          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span>Viilaajankatu 10, Lahti</span>
+        </a>
+      </div>
+
+      <!-- Quick Status Strip -->
+      <div class="mt-7 pt-5 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+        <div class="flex items-center gap-2">
+          <span id="openDot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0"></span>
+          <div>
+            <span class="text-slate-400 block" data-i18n="status_label">Workshop Hours</span>
+            <span id="openStatusText" class="font-semibold text-white">Mon–Fri 9–18, Sat 9–15</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <div>
+            <span class="text-slate-400 block" data-i18n="warranty_label">Warranty</span>
+            <span class="font-semibold text-white" data-i18n="warranty_val">6 mo / 15,000 km</span>
+          </div>
+        </div>
+        <div class="col-span-2 sm:col-span-1 flex items-center gap-2">
+          <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <div>
+            <span class="text-slate-400 block" data-i18n="team_label">Capacity</span>
+            <span class="font-semibold text-white" data-i18n="team_val">3 Dedicated Mechanics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="max-w-3xl mx-auto px-4 py-8 space-y-8">
+
+    <!-- Services Accordion Section -->
+    <section id="services">
+      <div class="flex items-end justify-between mb-4">
+        <div>
+          <h2 class="text-xl font-extrabold tracking-tight text-slate-900" data-i18n="sec_services">Our Services</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5" data-i18n="sec_services_sub">All makes & models • Tap a category to view details</p>
+        </div>
+      </div>
+
+      <div class="space-y-2.5" id="serviceAccordion">
+        <!-- Category 1 -->
+        <div class="accordion-item open bg-white rounded-xl border border-slate-200 shadow-sm">
+          <button type="button" class="accordion-trigger w-full px-4 py-3.5 flex items-center justify-between text-left">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm sm:text-base text-slate-900" data-i18n="srv_1_title">Maintenance & Mechanical Repairs</h3>
+                <p class="text-xs text-slate-500" data-i18n="srv_1_hint">Oil changes, brakes, timing belts, clutch & suspension</p>
+              </div>
+            </div>
+            <svg class="accordion-chevron w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner px-4 pb-4 pt-1 border-t border-slate-100">
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_periodic">Periodic Maintenance</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_oil">Oil & Filter Change</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_brakes">Brakes & Discs</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_timing">Timing Belts</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_clutch">Clutch & Gearbox</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_suspension">Suspension & Shocks</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_exhaust">Exhaust Systems</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 2 -->
+        <div class="accordion-item bg-white rounded-xl border border-slate-200 shadow-sm">
+          <button type="button" class="accordion-trigger w-full px-4 py-3.5 flex items-center justify-between text-left">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm sm:text-base text-slate-900" data-i18n="srv_2_title">Diagnostics & Electrical</h3>
+                <p class="text-xs text-slate-500" data-i18n="srv_2_hint">Fault code reading, troubleshooting, batteries & heaters</p>
+              </div>
+            </div>
+            <svg class="accordion-chevron w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner px-4 pb-4 pt-1 border-t border-slate-100">
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_obd">Fault Code Reading (OBD)</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_tracing">Electrical Fault Tracing</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_battery">Battery Testing & Replacement</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_heater">Block Heaters (Lohkolämmitin)</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_lights">Lights & Accessories</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 3 -->
+        <div class="accordion-item bg-white rounded-xl border border-slate-200 shadow-sm">
+          <button type="button" class="accordion-trigger w-full px-4 py-3.5 flex items-center justify-between text-left">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm sm:text-base text-slate-900" data-i18n="srv_3_title">Inspection Service (Katsastus)</h3>
+                <p class="text-xs text-slate-500" data-i18n="srv_3_hint">Pre-inspection checks & repair of failed inspection items</p>
+              </div>
+            </div>
+            <svg class="accordion-chevron w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner px-4 pb-4 pt-1 border-t border-slate-100">
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_precheck">Pre-Inspection Check</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_insp_repair">Inspection Defect Repairs</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_emissions">Emissions & Steering Checks</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 4 -->
+        <div class="accordion-item bg-white rounded-xl border border-slate-200 shadow-sm">
+          <button type="button" class="accordion-trigger w-full px-4 py-3.5 flex items-center justify-between text-left">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm sm:text-base text-slate-900" data-i18n="srv_4_title">Tyres, Alignment & Tyre Hotel</h3>
+                <p class="text-xs text-slate-500" data-i18n="srv_4_hint">Seasonal swaps, 4-wheel alignment & storage</p>
+              </div>
+            </div>
+            <svg class="accordion-chevron w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner px-4 pb-4 pt-1 border-t border-slate-100">
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_tyreswap">Tyre Changes & Balancing</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_alignment">Four-Wheel Alignment</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_tyrehotel">Tyre Hotel (Rengashotelli)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 5 -->
+        <div class="accordion-item bg-white rounded-xl border border-slate-200 shadow-sm">
+          <button type="button" class="accordion-trigger w-full px-4 py-3.5 flex items-center justify-between text-left">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm sm:text-base text-slate-900" data-i18n="srv_5_title">Detailing, Wash & Rust Protection</h3>
+                <p class="text-xs text-slate-500" data-i18n="srv_5_hint">Hand wash, interior cleaning, waxing, polishing & rust repair</p>
+              </div>
+            </div>
+            <svg class="accordion-chevron w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-inner px-4 pb-4 pt-1 border-t border-slate-100">
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_wash">Exterior Wash & Waxing</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_interior">Interior Deep Cleaning</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_polish">Paint Polishing</span>
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-medium" data-i18n="tag_rust">Rust Repair & Protection</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Drivers Choose Autofix Garage -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+      <h2 class="text-lg font-extrabold text-slate-900 mb-4" data-i18n="sec_why">Workshop Guarantees & Amenities</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900" data-i18n="why_1_t">6 Months / 15,000 km Warranty</h3>
+            <p class="text-xs text-slate-500 mt-0.5 leading-relaxed" data-i18n="why_1_d">Covers both workmanship and workshop-supplied spare parts.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900" data-i18n="why_2_t">Flexible Spare Parts</h3>
+            <p class="text-xs text-slate-500 mt-0.5 leading-relaxed" data-i18n="why_2_d">Original (OEM), OE-equivalent, aftermarket, used, or your own parts.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900" data-i18n="why_3_t">Waiting Lounge & Coffee</h3>
+            <p class="text-xs text-slate-500 mt-0.5 leading-relaxed" data-i18n="why_3_d">Comfortable waiting area with complimentary coffee while we work.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900" data-i18n="why_4_t">Pickup & Delivery (€60)</h3>
+            <p class="text-xs text-slate-500 mt-0.5 leading-relaxed" data-i18n="why_4_d">Convenient vehicle pickup and return available on request.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accepted Payments -->
+      <div class="mt-5 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider" data-i18n="pay_label">Accepted Payments:</span>
+        <div class="flex flex-wrap gap-1.5 text-xs font-semibold text-slate-700">
+          <span class="px-2.5 py-1 rounded bg-slate-100">MobilePay</span>
+          <span class="px-2.5 py-1 rounded bg-slate-100">Visa</span>
+          <span class="px-2.5 py-1 rounded bg-slate-100">Mastercard</span>
+          <span class="px-2.5 py-1 rounded bg-slate-100" data-i18n="pay_debit">Debit Card</span>
+          <span class="px-2.5 py-1 rounded bg-slate-100" data-i18n="pay_cash">Cash</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Verified Reviews -->
+    <section>
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-lg font-extrabold text-slate-900" data-i18n="sec_reviews">Customer Feedback</h2>
+        <div class="flex items-center gap-1.5 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
+          <svg class="w-3.5 h-3.5 text-amber-500 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <span class="text-xs font-extrabold text-slate-900">4.8 / 5.0</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <article class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-bold text-sm text-slate-900">Jaana R.</span>
+            <span class="text-[11px] font-medium text-slate-400">Renault Clio</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">"Kaikki toimi niin kuin oli sovittu." <span class="text-slate-400 block mt-1 italic" data-i18n="rev_1_en">(Everything worked exactly as agreed.)</span></p>
+        </article>
+
+        <article class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-bold text-sm text-slate-900">Jari O.</span>
+            <span class="text-[11px] font-medium text-slate-400">Volvo 850</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">"Ystävällistä ja asiallista palvelua edullisesti." <span class="text-slate-400 block mt-1 italic" data-i18n="rev_2_en">(Friendly and professional service at an affordable price.)</span></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Location & Opening Hours -->
+    <section id="location" class="bg-brand-dark text-white rounded-2xl p-5 sm:p-6 shadow-md">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-800">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-400" data-i18n="loc_tag">Visit Workshop</span>
+          <h2 class="text-xl font-extrabold mt-0.5">Viilaajankatu 10, 15520 Lahti</h2>
+          <p class="text-xs text-slate-400 mt-1">Y-tunnus: 3178296-5 • Autofix garage</p>
+        </div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Viilaajankatu+10,+15520+Lahti" target="_blank" rel="noopener"
+          class="inline-flex items-center justify-center gap-2 bg-white text-slate-950 hover:bg-slate-100 font-bold text-xs px-4 py-3 rounded-xl transition shrink-0">
+          <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+          <span data-i18n="loc_btn">Open in Google Maps</span>
+        </a>
+      </div>
+
+      <div class="pt-4 grid grid-cols-3 gap-2 text-xs">
+        <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block" data-i18n="day_mf">Mon – Fri</span>
+          <span class="font-bold text-white text-sm mt-0.5 block">09:00 – 18:00</span>
+        </div>
+        <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block" data-i18n="day_sat">Saturday</span>
+          <span class="font-bold text-white text-sm mt-0.5 block">09:00 – 15:00</span>
+        </div>
+        <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block" data-i18n="day_sun">Sunday</span>
+          <span class="font-bold text-slate-400 text-sm mt-0.5 block" data-i18n="day_closed">Closed</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mobile Sticky Bottom Thumb Bar -->
+  <div class="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
+    <div class="flex items-center gap-2.5">
+      <a href="#services"
+        class="flex-1 inline-flex items-center justify-center gap-1.5 bg-slate-100 active:bg-slate-200 text-slate-900 font-bold text-xs py-3 rounded-xl border border-slate-200">
+        <svg class="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <span data-i18n="sticky_services">Services</span>
+      </a>
+      <a href="https://www.google.com/maps/search/?api=1&query=Viilaajankatu+10,+15520+Lahti" target="_blank" rel="noopener"
+        class="flex-[1.4] inline-flex items-center justify-center gap-1.5 bg-amber-500 active:bg-amber-600 text-slate-950 font-extrabold text-xs py-3 rounded-xl shadow-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        <span data-i18n="sticky_directions">Get Directions</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Accordion behavior
+    document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const item = trigger.closest('.accordion-item');
+        item.classList.toggle('open');
+      });
+    });
+
+    // Bilingual EN / FI Dictionary
+    const translations = {
+      en: {
+        nav_visit: "Visit & Hours",
+        hero_badge: "Trusted Workshop in Lahti",
+        hero_title: "Honest, Thorough Car Service & Repair in Lahti.",
+        hero_sub: "All car makes serviced without rushing. Clear upfront estimates, 6-month / 15,000 km warranty on work and parts, and fast availability.",
+        cta_services: "Explore Services",
+        status_label: "Workshop Hours",
+        warranty_label: "Warranty",
+        warranty_val: "6 mo / 15,000 km",
+        team_label: "Capacity",
+        team_val: "3 Dedicated Mechanics",
+        sec_services: "Our Services",
+        sec_services_sub: "All makes & models • Tap a category to view details",
+        srv_1_title: "Maintenance & Mechanical Repairs",
+        srv_1_hint: "Oil changes, brakes, timing belts, clutch & suspension",
+        srv_2_title: "Diagnostics & Electrical",
+        srv_2_hint: "Fault code reading, troubleshooting, batteries & heaters",
+        srv_3_title: "Inspection Service (Katsastus)",
+        srv_3_hint: "Pre-inspection checks & repair of failed inspection items",
+        srv_4_title: "Tyres, Alignment & Tyre Hotel",
+        srv_4_hint: "Seasonal swaps, 4-wheel alignment & storage",
+        srv_5_title: "Detailing, Wash & Rust Protection",
+        srv_5_hint: "Hand wash, interior cleaning, waxing, polishing & rust repair",
+        tag_periodic: "Periodic Maintenance",
+        tag_oil: "Oil & Filter Change",
+        tag_brakes: "Brakes & Discs",
+        tag_timing: "Timing Belts",
+        tag_clutch: "Clutch & Gearbox",
+        tag_suspension: "Suspension & Shocks",
+        tag_exhaust: "Exhaust Systems",
+        tag_obd: "Fault Code Reading (OBD)",
+        tag_tracing: "Electrical Fault Tracing",
+        tag_battery: "Battery Testing & Replacement",
+        tag_heater: "Block Heaters (Lohkolämmitin)",
+        tag_lights: "Lights & Accessories",
+        tag_precheck: "Pre-Inspection Check",
+        tag_insp_repair: "Inspection Defect Repairs",
+        tag_emissions: "Emissions & Steering Checks",
+        tag_tyreswap: "Tyre Changes & Balancing",
+        tag_alignment: "Four-Wheel Alignment",
+        tag_tyrehotel: "Tyre Hotel (Rengashotelli)",
+        tag_wash: "Exterior Wash & Waxing",
+        tag_interior: "Interior Deep Cleaning",
+        tag_polish: "Paint Polishing",
+        tag_rust: "Rust Repair & Protection",
+        sec_why: "Workshop Guarantees & Amenities",
+        why_1_t: "6 Months / 15,000 km Warranty",
+        why_1_d: "Covers both workmanship and workshop-supplied spare parts.",
+        why_2_t: "Flexible Spare Parts",
+        why_2_d: "Original (OEM), OE-equivalent, aftermarket, used, or your own parts.",
+        why_3_t: "Waiting Lounge & Coffee",
+        why_3_d: "Comfortable waiting area with complimentary coffee while we work.",
+        why_4_t: "Pickup & Delivery (€60)",
+        why_4_d: "Convenient vehicle pickup and return available on request.",
+        pay_label: "Accepted Payments:",
+        pay_debit: "Debit Card",
+        pay_cash: "Cash",
+        sec_reviews: "Customer Feedback",
+        rev_1_en: "(Everything worked exactly as agreed.)",
+        rev_2_en: "(Friendly and professional service at an affordable price.)",
+        loc_tag: "Visit Workshop",
+        loc_btn: "Open in Google Maps",
+        day_mf: "Mon – Fri",
+        day_sat: "Saturday",
+        day_sun: "Sunday",
+        day_closed: "Closed",
+        sticky_services: "Services",
+        sticky_directions: "Get Directions",
+      },
+      fi: {
+        nav_visit: "Sijainti & Aukiolo",
+        hero_badge: "Luotettava autokorjaamo Lahdessa",
+        hero_title: "Huolellista autohuoltoa ja korjausta Lahdessa.",
+        hero_sub: "Huollamme kaikki automerkit ilman turhaa kiirettä. Selkeä kustannusarvio etukäteen sekä 6 kk / 15 000 km takuu työlle ja varaosille.",
+        cta_services: "Tutustu palveluihin",
+        status_label: "Aukioloajat",
+        warranty_label: "Takuu",
+        warranty_val: "6 kk / 15 000 km",
+        team_label: "Henkilöstö",
+        team_val: "3 ammattiasentajaa",
+        sec_services: "Palvelumme",
+        sec_services_sub: "Kaikki automerkit • Avaa kategoria napauttamalla",
+        srv_1_title: "Huollot & mekaaniset korjaukset",
+        srv_1_hint: "Öljynvaihdot, jarrut, jakohihnat, kytkin ja alusta",
+        srv_2_title: "Vianhaku & sähkötyöt",
+        srv_2_hint: "Vikakoodien luku, sähköviat, akut ja lohkolämmittimet",
+        srv_3_title: "Katsastuspalvelut",
+        srv_3_hint: "Katsastustarkastukset ja katsastuskorjaukset",
+        srv_4_title: "Renkaat, suuntaus & rengashotelli",
+        srv_4_hint: "Renkaanvaihdot, nelipyöräsuuntaus ja säilytys",
+        srv_5_title: "Pesut, vahaukset & ruostesuojaus",
+        srv_5_hint: "Käsinpesu, sisäpuhdistus, kiillotus ja ruostekorjaus",
+        tag_periodic: "Määräaikaishuolto",
+        tag_oil: "Öljynvaihto",
+        tag_brakes: "Jarrutyöt",
+        tag_timing: "Jakohihnan vaihto",
+        tag_clutch: "Kytkin & vaihteisto",
+        tag_suspension: "Jousitus & iskunvaimentimet",
+        tag_exhaust: "Pakoputkisto",
+        tag_obd: "Vikakoodien luku",
+        tag_tracing: "Sähkövikojen haku",
+        tag_battery: "Akun testaus & vaihto",
+        tag_heater: "Lohkolämmitin",
+        tag_lights: "Valot & lisävarusteet",
+        tag_precheck: "Katsastushuolto",
+        tag_insp_repair: "Katsastuskorjaus",
+        tag_emissions: "Päästöt & ohjauslaitteet",
+        tag_tyreswap: "Renkaanvaihto & tasapainotus",
+        tag_alignment: "Nelipyöräsuuntaus",
+        tag_tyrehotel: "Rengashotelli",
+        tag_wash: "Käsinpesu & vahaus",
+        tag_interior: "Sisäpuhdistus",
+        tag_polish: "Kiillotus / myllytys",
+        tag_rust: "Ruostekorjaus & suojaus",
+        sec_why: "Takuut & lisäpalvelut",
+        why_1_t: "6 kk / 15 000 km takuu",
+        why_1_d: "Kattaa sekä työn että korjaamon toimittamat varaosat.",
+        why_2_t: "Joustavat varaosavaihtoehdot",
+        why_2_d: "Alkuperäiset, vastaavat, tarvike-, käytetyt tai omat osat.",
+        why_3_t: "Odotustilat & kahvitarjoilu",
+        why_3_d: "Viihtyisä odotustila ja kahvit huollon aikana.",
+        why_4_t: "Noutopalvelu (60 €)",
+        why_4_d: "Auton nouto ja palautus sopimuksen mukaan.",
+        pay_label: "Maksutavat:",
+        pay_debit: "Pankkikortti",
+        pay_cash: "Käteinen",
+        sec_reviews: "Asiakaspalautteet",
+        rev_1_en: "",
+        rev_2_en: "",
+        loc_tag: "Toimipiste",
+        loc_btn: "Avaa Google Mapsissa",
+        day_mf: "Ma – Pe",
+        day_sat: "Lauantai",
+        day_sun: "Sunnuntai",
+        day_closed: "Suljettu",
+        sticky_services: "Palvelut",
+        sticky_directions: "Reittiohjeet",
+      }
+    };
+
+    let currentLang = 'en';
+    const langToggle = document.getElementById('langToggle');
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key] !== undefined) {
+          el.textContent = translations[lang][key];
+        }
+      });
+    }
+
+    langToggle.addEventListener('click', () => {
+      setLanguage(currentLang === 'en' ? 'fi' : 'en');
+    });
+  </script>
+</body>
+</html>
